@@ -12,9 +12,9 @@ REGISTRY = "ghcr.io/cyberneticidol/"
 
 IMAGES = [
     "bazzite",
-   # "bazzite-gnome",
+    "bazzite-gnome",
     "bazzite-deck",
-   # "bazzite-deck-gnome",
+    "bazzite-deck-gnome",
    # "bazzite-deck-nvidia",
    # "bazzite-deck-nvidia-gnome",
    # "bazzite-nvidia",
