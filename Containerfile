@@ -298,8 +298,6 @@ RUN --mount=type=cache,dst=/var/cache \
         gmodpatchtool \
         bazzite-portal \
         kernel-tools \
-        SDL2_image \
-        sdl2-compat \
         ls-iommu && \
     dnf5 -y swap \
         --repo terra \
