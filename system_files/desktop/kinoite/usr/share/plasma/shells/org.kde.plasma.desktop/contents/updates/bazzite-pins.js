@@ -18,7 +18,6 @@ for (let i = 0; i < allPanels.length; ++i) {
                 widget.writeConfig("launchers", [
                     "preferred://browser",
                     "applications:steam.desktop",
-                    "applications:net.lutris.Lutris.desktop",
                     "applications:org.kde.konsole.desktop",
                     "applications:io.github.kolunmi.Bazaar.desktop",
                     "applications:io.github.ublue_os.yafti_gtk.desktop",

@@ -1,4 +1,3 @@
-*Installing a Windows game that isn't on Steam?* Lutris is pre-installed and recommended for better handling of wine prefixes~[View gaming guide](https://docs.bazzite.gg/Gaming/)
 BTRFS is used by default for internal drives, and we recommend BTRFS for external drives including MicroSD cards. *NTFS and exFAT are not supported.*
 *No Flatpak or distro packaging available?* The Gear Lever app is included to make managing and integrating AppImages easy!
 *Want to control your device from your phone?* The KDE Connect app functions with all Bazzite images~[More info](https://kdeconnect.kde.org/)

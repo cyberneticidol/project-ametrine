@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+set -eoux pipefail
+
+echo "::group::Executing install-kernel-akmods-deck"
+trap 'echo "::endgroup::"' EXIT
+
+# create a shims to bypass kernel install triggering dracut/rpm-ostree
+# seems to be minimal impact, but allows progress on build
+pushd /usr/lib/kernel/install.d
+mv 05-rpmostree.install 05-rpmostree.install.bak
+mv 50-dracut.install 50-dracut.install.bak
+printf '%s\n' '#!/bin/sh' 'exit 0' > 05-rpmostree.install
+printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install
+chmod +x  05-rpmostree.install 50-dracut.install
+popd
+
+# We don't need all the stuff in the other script, as the kernel is installed already.
+# We just install the ones that the deck needs, and it saves us a lot of bother.
+# It taints the kernel for OOT modules, but for TDP control, it might be worth it. -M
+/ctx/install-kmods \
+    /tmp/rpms/{extra,kmods-extra}/*zenergy*.rpm \
+    /tmp/rpms/{extra,kmods-extra}/*ryzen_smu*.rpm
+
+pushd /usr/lib/kernel/install.d
+mv -f 05-rpmostree.install.bak 05-rpmostree.install
+mv -f 50-dracut.install.bak 50-dracut.install
+popd

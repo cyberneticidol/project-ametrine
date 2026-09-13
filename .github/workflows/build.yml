@@ -1,33 +1,33 @@
 name: Build Bazzite
 on:
   schedule:
-    - cron: "40 4 * * 1" # 4:40 utc monday
-  pull_request:
-    branches:
-      - testing
-      - unstable
-    paths-ignore:
-      - "**.md"
-      - "**.txt"
-      - "installer/**"
-      - "repo_content/**"
-      - "spec_files/**"
-      - "post_install_files/**"
-      - "press_kit/**"
-      - "docs/**"
-      - ".github/workflows/build_iso*.yml"
-  push:
-    branches:
-      - testing
-      - unstable
-    paths-ignore:
-      - "**.md"
-      - "**.txt"
-      - "repo_content/**"
-      - "spec_files/**"
-      - "post_install_files/**"
-      - "press_kit/**"
-      - ".github/workflows/build_iso*.yml"
+    - cron: "25 9 * * 6" # Running at 9:25 UTC every Saturday morning! Magnifico!
+  #pull_request:
+  #  branches:
+  #    - testing
+  #    - unstable
+  #  paths-ignore:
+  #    - "**.md"
+  #    - "**.txt"
+  #    - "installer/**"
+  #    - "repo_content/**"
+  #    - "spec_files/**"
+  #    - "post_install_files/**"
+  #    - "press_kit/**"
+  #    - "docs/**"
+  #    - ".github/workflows/build_iso*.yml"
+  #push:
+  #  branches:
+  #    - testing
+  #    - unstable
+  #  paths-ignore:
+  #    - "**.md"
+  #    - "**.txt"
+  #    - "repo_content/**"
+  #    - "spec_files/**"
+  #    - "post_install_files/**"
+  #    - "press_kit/**"
+  #    - ".github/workflows/build_iso*.yml"
   merge_group:
   workflow_dispatch:
     inputs:
@@ -53,6 +53,11 @@ jobs:
     outputs:
       version: ${{ steps.generate.outputs.version }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
@@ -115,25 +120,32 @@ jobs:
           - bazzite-gnome
           - bazzite-deck
           - bazzite-deck-gnome
-          - bazzite-deck-nvidia
-          - bazzite-deck-nvidia-gnome
-          - bazzite-nvidia
-          - bazzite-gnome-nvidia
-          - bazzite-nvidia-open
-          - bazzite-gnome-nvidia-open
+          #- bazzite-deck-nvidia
+          #- bazzite-deck-nvidia-gnome
+          #- bazzite-nvidia
+          #- bazzite-gnome-nvidia
+          #- bazzite-nvidia-open
+          #- bazzite-gnome-nvidia-open
+          
         include:
           - fedora_version: 44
             kernel_flavor: ogc
             kernel_version: 7.2.4-ogc3.1.fc44
             base_image_flavor: main
             arch: x86_64
-          - image: bazzite-nvidia
-            kernel_flavor: ogc-lts
-            kernel_version: 6.18.49-ogc1.1.fc44
-          - image: bazzite-gnome-nvidia
-            kernel_flavor: ogc-lts
-            kernel_version: 6.18.49-ogc1.1.fc44
+          #- image: bazzite-nvidia
+          #  kernel_flavor: ogc-lts
+          #  kernel_version: 6.18.49-ogc1.1.fc44
+          #- image: bazzite-gnome-nvidia
+          #  kernel_flavor: ogc-lts
+          #  kernel_version: 6.18.49-ogc1.1.fc44
+
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
       - name: Show disk space
         run: sudo df -h
 
@@ -147,7 +159,7 @@ jobs:
           fi
 
       - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+        uses: cyberneticidol/free-disk-space-ng@7ef3ab3fe80bdd526bc520cc0dcbb3f59c109fe5
 
       # The image registry name must be lower-case, but GitHub usernames can be capitalized.
       - name: Get lower-case equivalent of the repository owner's username
@@ -233,7 +245,7 @@ jobs:
           tar -xC "$DOCS_DIR" -f artifact.tar
 
       - name: Check just syntax
-        uses: ublue-os/just-action@v3
+        uses: ublue-os/just-action@30ab4659369934b65b655bf8d2fa4ddd6547d384 #this is the v3 tag hash
 
       - name: Pull Images and find versions
         id: labels
@@ -339,6 +351,18 @@ jobs:
 
           echo "cache_name=${CACHE_NAME}" >> "$GITHUB_OUTPUT"
           echo "allow_cache_write=${ALLOW_CACHE_WRITE}" >> "$GITHUB_OUTPUT"
+
+#      - name: Restore DNF package cache
+#        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+#        env:
+#          CACHE_NAME: ${{ steps.cache-prep.outputs.cache_name }}
+#          ALLOW_CACHE_WRITE: ${{ steps.cache-prep.outputs.allow_cache_write }}
+#        with:
+#          path: /var/tmp/buildah-cache-*
+#          key: ${{ runner.os }}-${{ runner.arch }}-buildah-${{ env.CACHE_NAME }}-${{ github.run_id }}
+#          restore-keys: |
+#            ${{ runner.os }}-${{ runner.arch }}-buildah-${{ env.CACHE_NAME }}-
+#            ${{ runner.os }}-${{ runner.arch }}-buildah-${{ env.CACHE_NAME }}
 
       # Build image using buildah and save it to raw-img
       - name: Build Image
@@ -507,6 +531,7 @@ jobs:
           done
           echo "alias_tags=${BUILD_TAGS[*]}" >> $GITHUB_OUTPUT
 
+
       - name: Install dgoss
         run: |
           set -euo pipefail
@@ -655,6 +680,11 @@ jobs:
     needs: [generate_release]
     if: github.repository == 'ublue-os/bazzite' && github.event_name != 'pull_request'
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
       - name: Get target branch
         id: get-target
         run: |
@@ -679,6 +709,11 @@ jobs:
     needs: [generate_release]
     if: github.repository == 'ublue-os/bazzite' && github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
       - name: Kickoff Bazzite-DX
         uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4
         continue-on-error: true

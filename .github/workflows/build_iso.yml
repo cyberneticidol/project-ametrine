@@ -32,15 +32,15 @@ jobs:
       matrix:
         image_name:
           - bazzite
-          - bazzite-nvidia
-          - bazzite-nvidia-open
-          - bazzite-gnome
-          - bazzite-gnome-nvidia
-          - bazzite-gnome-nvidia-open
+          #- bazzite-nvidia
+          #- bazzite-nvidia-open
+          #- bazzite-gnome
+          #- bazzite-gnome-nvidia
+          #- bazzite-gnome-nvidia-open
           - bazzite-deck
-          - bazzite-deck-gnome
-          - bazzite-deck-nvidia
-          - bazzite-deck-nvidia-gnome
+          #- bazzite-deck-gnome
+          #- bazzite-deck-nvidia
+          #- bazzite-deck-nvidia-gnome
     steps:
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
@@ -138,7 +138,7 @@ jobs:
           sudo du -sh /mnt/podman-storage.img
 
       - name: Build ISOs
-        uses: Zeglius/titanoboa@revamp-pr
+        uses: Zeglius/titanoboa@7737f4748458252ac827dca14b3d6dd09298472a #This is the revamp-pr hash.
         id: build
         with:
           image-ref: localhost/payload:latest

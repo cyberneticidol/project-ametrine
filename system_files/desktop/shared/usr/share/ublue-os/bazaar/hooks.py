@@ -129,46 +129,6 @@ def handle_jetbrains():
             # always prevent installation of JetBrains flatpaks
             return 'deny'
 
-def handle_vscode():
-
-    def appid_is_vscode(appid):
-        return appid.startswith('com.visualstudio.code')
-
-    match stage:
-        case 'setup':
-            if transaction_type == 'install' and appid_is_vscode(transaction_appid):
-                return 'ok'
-            else:
-                return 'pass'
-
-        case 'setup-dialog':
-            return 'ok'
-
-        case 'teardown-dialog':
-            if dialog_response_id == 'run-brew' or dialog_response_id == 'learn-dx':
-                pick_action(dialog_response_id)
-                return 'ok'
-            else:
-                return 'abort'
-
-        case 'catch':
-            return 'abort'
-
-        case 'action':
-            try:
-                action = find_action()
-                if action == 'run-brew':
-                    spawn_brew_ublue('visual-studio-code-linux')
-                elif action == 'learn-dx':
-                    spawn_and_detach(['xdg-open', 'https://dev.bazzite.gg/'])
-            except:
-                pass
-            return ''
-
-        case 'teardown':
-            # always prevent installation of VSCode flatpak
-            return 'deny'
-
 def handle_vscodium():
 
     def appid_is_vscodium(appid):
@@ -210,8 +170,6 @@ response = 'pass'
 match hook_id:
     case 'jetbrains-toolbox':
         response = handle_jetbrains()
-    case 'vscode':
-        response = handle_vscode()
     case 'vscodium':
         response = handle_vscodium()
 

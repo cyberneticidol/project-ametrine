@@ -8,19 +8,19 @@ from typing import Any
 import re
 from collections import defaultdict
 
-REGISTRY = "ghcr.io/ublue-os/"
+REGISTRY = "ghcr.io/cyberneticidol/"
 
 IMAGES = [
     "bazzite",
     "bazzite-gnome",
     "bazzite-deck",
     "bazzite-deck-gnome",
-    "bazzite-deck-nvidia",
-    "bazzite-deck-nvidia-gnome",
-    "bazzite-nvidia",
-    "bazzite-gnome-nvidia",
-    "bazzite-nvidia-open",
-    "bazzite-gnome-nvidia-open",
+   # "bazzite-deck-nvidia",
+   # "bazzite-deck-nvidia-gnome",
+   # "bazzite-nvidia",
+   # "bazzite-gnome-nvidia",
+   # "bazzite-nvidia-open",
+   # "bazzite-gnome-nvidia-open",
 ]
 
 RETRIES = 3

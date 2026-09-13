@@ -34,7 +34,7 @@ ARG ARCH="${ARCH:-x86_64}"
 ARG BASE_IMAGE="${BASE_IMAGE:-ghcr.io/ublue-os/${BASE_IMAGE_NAME}-main:${FEDORA_VERSION}}"
 ARG NVIDIA_BASE="${NVIDIA_BASE:-bazzite}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-ogc}"
-ARG KERNEL_VERSION="${KERNEL_VERSION:-7.0.9-ogc3.2.fc${FEDORA_VERSION}.${ARCH}}"
+ARG KERNEL_VERSION="${KERNEL_VERSION:-7.2.1-ogc3.fc${FEDORA_VERSION}.${ARCH}}"
 ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia-open}"
 
 FROM ghcr.io/ublue-os/akmods:${KERNEL_FLAVOR}-${FEDORA_VERSION}-${KERNEL_VERSION} AS akmods
@@ -64,6 +64,7 @@ COPY system_files/desktop/shared/ system_files/desktop/${BASE_IMAGE_NAME}/ /
 RUN find /usr/share/ublue-os/docs -type f -exec setfattr -n user.component -v "ublue-docs" {} +
 
 # Install needed firmware blobs
+
 RUN --mount=type=bind,src=firmware,dst=/ctx/firmware \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
@@ -74,6 +75,8 @@ RUN --mount=type=bind,src=firmware,dst=/ctx/firmware \
     rm -rf /tmp/firmware
 
 # Copy Homebrew files from the brew image
+
+ARG BREW_IMAGE=ghcr.io/ublue-os/brew:latest@sha256:ca91068f51ce663d495ccfc829352d6621ec95f6c7db447ade55023b222f9762
 COPY --from=brew /system_files/ /tmp/brew_files/
 RUN find /tmp/brew_files -type f -printf '/%P\0' > /tmp/brew_list.txt && \
     cp -a /tmp/brew_files/. / && \
@@ -81,6 +84,7 @@ RUN find /tmp/brew_files -type f -printf '/%P\0' > /tmp/brew_list.txt && \
     rm -rf /tmp/brew_files /tmp/brew_list.txt
 
 # Install kernel
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=akmods,src=/kernel-rpms,dst=/tmp/kernel-rpms \
@@ -94,6 +98,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # Setup Copr repos
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/cache/libdnf5 \
     --mount=type=cache,dst=/var/log \
@@ -131,6 +136,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # Install Valve's patched Mesa, Bluez, and Xwayland
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/cache/libdnf5 \
     --mount=type=cache,dst=/var/log \
@@ -184,6 +190,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # Remove unneeded packages
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/cache/libdnf5 \
     --mount=type=cache,dst=/var/log \
@@ -193,6 +200,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # Install new packages
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
@@ -234,6 +242,7 @@ RUN --mount=type=cache,dst=/var/cache \
         lm_sensors \
         iio-sensor-proxy \
         fw-ectool \
+        minisign \
         fw-fanctrl \
         framework-system \
         udica \
@@ -308,7 +317,8 @@ RUN --mount=type=cache,dst=/var/cache \
     sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-launcher && \
     /ctx/cleanup
 
-# Install Steam & Lutris, plus supporting packages
+# Install Steam, plus supporting packages
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/cache/libdnf5 \
     --mount=type=cache,dst=/var/log \
@@ -349,8 +359,7 @@ RUN --mount=type=cache,dst=/var/cache \
         openxr \
         openxr-libs && \
     dnf5 -y --enable-repo=terra-mesa --enable-repo=terra --setopt=install_weak_deps=False install \
-        steam \
-        lutris && \
+        steam && \
     dnf5 -y remove \
         gamemode && \
     /ctx/ghcurl "https://raw.githubusercontent.com/Winetricks/winetricks/5a59ea07513b24093bd90fad943ecf9543cf05bc/src/winetricks" -Lo /usr/bin/winetricks && \
@@ -359,6 +368,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # Install ujust-picker from GitHub releases
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/cache/libdnf5 \
     --mount=type=cache,dst=/var/log \
@@ -371,6 +381,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # Configure KDE & GNOME
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
@@ -414,6 +425,7 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/cleanup
 
 # ublue-os-media-automount-udev, mount non-removable device partitions automatically under /media/media-automount/
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/cache/libdnf5 \
     --mount=type=cache,dst=/var/log \
@@ -424,7 +436,49 @@ RUN --mount=type=cache,dst=/var/cache \
     { systemctl enable ublue-os-media-automount.service || true; } && \
     /ctx/cleanup
 
+# Install rage and the rust version of the yubikey addon
+
+RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/cache/libdnf5 \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    dnf5 -y copr enable krischan/rage && \
+    dnf5 -y copr enable krischan/age-plugin-yubikey && \
+    dnf5 install -y \
+        rage && \
+    dnf5 install -y \
+        age-plugin-yubikey  && \
+    dnf5 -y copr disable krischan/rage && \
+    dnf5 -y copr disable krischan/age-plugin-yubikey && \
+    /ctx/cleanup
+
+# Install Librewolf, because Screw Firefox.
+
+ RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/cache/libdnf5 \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    dnf5 -y config-manager addrepo --from-repofile=https://repo.librewolf.net/librewolf.repo && \
+    dnf5 install -y \
+        librewolf && \
+    /ctx/cleanup
+
+# Come to think of it, why not add Token2's FIDO2 Bridge? It does have an RPM, but it needs grabbing from the git repo.
+
+ RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/cache/libdnf5 \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    wget https://github.com/cyberneticidol/token2-fido-bridge/releases/download/v1.2.1/token2-fido-bridge-1.2.1-1.fc44.x86_64.rpm && \
+    dnf5 install -y \
+        token2-fido-bridge-1.2.1-1.fc44.x86_64.rpm  && \
+    /ctx/cleanup
+
 # Cleanup & Finalize
+
 COPY system_files/overrides /
 
 RUN --mount=type=cache,dst=/var/cache \
@@ -438,7 +492,6 @@ RUN --mount=type=cache,dst=/var/cache \
     cp --no-dereference --preserve=links /usr/lib64/libdrm.so.2 /usr/lib64/libdrm.so && \
     sed -i 's@/usr/bin/steam@/usr/bin/bazzite-steam@g' /usr/share/applications/steam.desktop && \
     sed -i 's@Exec=steam steam://open/bigpicture@Exec=/usr/bin/bazzite-steam-bpm@g' /usr/share/applications/steam.desktop && \
-    sed -i 's|^Exec=lutris %U$|Exec=env PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python lutris %U|' /usr/share/applications/net.lutris.Lutris.desktop && \
     mkdir -p /etc/skel/.config/autostart/ && \
     cp "/usr/share/applications/steam.desktop" "/etc/skel/.config/autostart/steam.desktop" && \
     sed -i 's@/usr/bin/bazzite-steam %U@/usr/bin/bazzite-steam -silent %U@g' /etc/skel/.config/autostart/steam.desktop && \
@@ -567,6 +620,19 @@ ARG VERSION_TAG="${VERSION_TAG}"
 ARG VERSION_PRETTY="${VERSION_PRETTY}"
 
 COPY system_files/deck/shared system_files/deck/${BASE_IMAGE_NAME} /
+
+# Install needed OOT kmods for the deck. The kernel is installed already, so it's shorter. -M
+RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=bind,from=akmods,src=/kernel-rpms,dst=/tmp/kernel-rpms \
+    --mount=type=bind,from=akmods,src=/rpms/common,dst=/tmp/rpms/common \
+    --mount=type=bind,from=akmods,src=/rpms/kmods,dst=/tmp/rpms/kmods \
+    --mount=type=bind,from=akmods-extra,src=/rpms/extra,dst=/tmp/rpms/extra \
+    --mount=type=bind,from=akmods-extra,src=/rpms/kmods,dst=/tmp/rpms/kmods-extra \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    /ctx/install-kernel-akmods-deck && \
+    /ctx/cleanup
 
 # Setup Copr repos
 RUN --mount=type=cache,dst=/var/cache \

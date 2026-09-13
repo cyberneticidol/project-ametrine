@@ -56,7 +56,6 @@ mv %{buildroot}%{_datadir}/plasma/look-and-feel/com.valve.vapor.deck.desktop %{b
 rm %{buildroot}%{_sysconfdir}/xdg/autostart/defaultbrightness.desktop
 rm %{buildroot}%{_sysconfdir}/xdg/autostart/setup-kwallet.desktop
 rm %{buildroot}%{_datadir}/applications/steam/steamos-nested-desktop
-rm %{buildroot}%{_datadir}/applications/org.mozilla.firefox.desktop
 rm %{buildroot}%{_datadir}/kio/servicemenus/steam.desktop
 rm %{buildroot}%{_datadir}/icons/hicolor/scalable/places/distributor-logo.svg
 rm %{buildroot}%{_sysconfdir}/profile.d/kde.sh

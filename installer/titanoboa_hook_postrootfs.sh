@@ -8,7 +8,7 @@ source /etc/os-release
 dnf -qy versionlock clear
 
 # Install Anaconda
-dnf install -qy --enable-repo=fedora-cisco-openh264 --allowerasing firefox anaconda-live libblockdev-{btrfs,lvm,dm}
+dnf install -qy --enable-repo=fedora-cisco-openh264 --allowerasing librewolf anaconda-live libblockdev-{btrfs,lvm,dm}
 
 mkdir -p /var/lib/rpm-state # Needed for Anaconda Web UI
 
@@ -72,7 +72,7 @@ if [[ \$IS_BITLOCKER =~ true ]]; then
         _RETCODE=\$?
         case \$_RETCODE in
             0) _EXITLOCK=0; ;;
-            10) _EXITLOCK=0; pkill liveinst; pkill firefox; exit 0 ;;
+            10) _EXITLOCK=0; pkill liveinst; pkill librewolf; exit 0 ;;
         esac
     done
 fi

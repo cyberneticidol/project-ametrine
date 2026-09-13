@@ -37,11 +37,6 @@ screens:
         description: "Command-line tools for interfacing with the Android operating system — intalled using Brew."
         default: false
         script: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install --cask android-platform-tools'
-      - id: "antigravity-linux"
-        title: "Antigravity"
-        description: "AI-powered IDE from Google — installed using Brew."
-        default: false
-        script: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew trust ublue-os/tap && brew tap ublue-os/tap && brew install --cask antigravity-linux'
       - id: "asus"
         title: "asusctl & ROG Control Center"
         description: "Utilities for management of ASUS hardware."
@@ -169,14 +164,9 @@ screens:
         description: "Utility for managing IDE installs from JetBrains — installed using Brew."
         default: false
         script: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew trust ublue-os/tap && brew tap ublue-os/tap && brew install --cask jetbrains-toolbox-linux'
-      - id: "lm-studio-linux"
-        title: "LM Studio"
-        description: "Suite for locally utilizing large language models (LLMs) — installed using Brew."
-        default: false
-        script: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew trust ublue-os/tap && brew tap ublue-os/tap && brew install --cask lm-studio-linux'
-      - id: "lsfg-vk v2"
-        title: "Lossless Scaling — Vulkan Layer v2"
-        description: "Install «lsfg-vk v2», the adapter for Lossless Scaling frame generation on Linux."
+      - id: "lsfg-vk"
+        title: "Lossless Scaling — Vulkan Layer"
+        description: "Install «lsfg-vk», the adapter for Lossless Scaling frame generation on Linux."
         default: false
         status_script: "ujust get-lsfg status"
         options:
@@ -296,11 +286,6 @@ screens:
           - id: "vmon"
             label: "Setup Virtual Monitor"
             script: "ujust setup-sunshine virtual-monitor"
-      - id: "visual-studio-code-linux"
-        title: "Visual Studio Code"
-        description: "Open source code editor and debugger from Microsoft — installed using Brew."
-        default: false
-        script: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew trust ublue-os/tap && brew tap ublue-os/tap && brew install --cask visual-studio-code-linux'
       - id: "vscodium-linux"
         title: "VSCodium"
         description: "Strictly open source community edition of Visual Studio Code — installed using Brew."
@@ -359,11 +344,6 @@ screens:
         description: "Subscription service for entertainment on demand."
         default: false
         script: "ujust get-media-app \"Disney Plus\""
-      # - id: "geforce-now"
-      #   title: "GeForce Now"
-      #   description: "Cloud gaming service"
-      #   default: false
-      #   script: "ujust get-media-app \"GeForce Now\""
       - id: "hbo-max"
         title: "HBO Max"
         description: "Subscription service for entertainment on demand."

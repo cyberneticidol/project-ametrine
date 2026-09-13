@@ -62,7 +62,6 @@ rm %{buildroot}%{_sysconfdir}/xdg/autostart/setup-kwallet.desktop
 rm %{buildroot}%{_sysconfdir}/sddm.conf.d/steamdeck.conf
 rm %{buildroot}%{_datadir}/icons/hicolor/scalable/places/distributor-logo.svg
 rm %{buildroot}%{_sysconfdir}/xdg/autostart/steam.desktop
-rm %{buildroot}%{_datadir}/applications/org.mozilla.firefox.desktop
 rm %{buildroot}%{_sysconfdir}/profile.d/kde.sh
 rm %{buildroot}%{_sysconfdir}/xdg/kcm-about-distrorc
 rm %{buildroot}%{_sysconfdir}/xdg/kded5rc
