@@ -171,10 +171,10 @@ screens:
         status_script: "ujust get-lsfg status"
         options:
           - id: "install"
-            label: "Install «lsfg-vk»"
+            label: "Install «lsfg-vk v2»"
             script: 'ujust get-lsfg install; status=$?; echo; echo "Press Enter to close..."; read -r _; exit $status'
           - id: "uninstall"
-            label: "Uninstall «lsfg-vk»"
+            label: "Uninstall «lsfg-vk v2»"
             script: 'ujust get-lsfg uninstall; status=$?; echo; echo "Press Enter to close..."; read -r _; exit $status'
       - id: "openrazer"
         title: "OpenRazer"
