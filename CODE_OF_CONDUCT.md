@@ -25,7 +25,7 @@ We're going to do a 2 strike rule here with an optional warning. You are out on 
 3. **Strike two**: After 1 strike, you behaved the same way again.
 
 > [WARNING]
-> If you are caught being excessively rude here, especially if you're displaying a form of severe bigotry or bringing an inappropriate tone, we reserve the right to ban you from the repo with no strikes and if necessary, we will report you to codeberg.org.
+> If you are caught being excessively rude here, especially if you're displaying a form of severe bigotry or bringing an inappropriate tone, we reserve the right to ban you from the repo with no strikes and if necessary, we will report you to GitHub, although the chances of them actually doing anything about rude contributors are, seeing as it's Microsoft, pretty remote.
 
 # Be kind or be gone
 
