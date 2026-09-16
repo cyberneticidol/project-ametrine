@@ -50,3 +50,11 @@ We're going to do a 2 strike rule here with an optional warning. You are out on 
 ### Alt Text
 
 Please provide alt text descriptions for any images you post. This is so that users that are blind or low vision know what is being posted as their screenreaders can read it aloud. This is also useful for people who speak other languages so that they can translate any text from the screenshot and understand context. If you don't provide alt text after being asked to, we will count that as a warning, and if you still fail to do so, it will be a strike. We make exceptions if you yourself have a disability preventing you from doing so. Please kindly ask that someone else provide alt text for you, and when they do, please update your image's alt text. (*You do not need to disclose your disability.* It is fine to ask others to provide alt text for you for ANY reason.)
+
+## The Honour Code of a Developer
+
+The honour code is based off the United States Military Academy, West Point's Cadet Honour Code, which is simply:
+
+"A Project Ametrine developer does not lie, cheat or steal, and will not tolerate those that do."
+
+This extends to intellectual dishonesty. If a developer spots another developer using Generative AI and trying to hide it, for example, it's on them to report it, otherwise, they could also be punished as an accessory.
