@@ -1,0 +1,34 @@
+name: check commit messages for AI
+
+on:
+  pull_request:
+    branches: [main, testing, unstable]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run commit message check for CoPilot
+        uses: BetaTH13/check-commit@c3547d8f1720b91d41b4d45600cd9298061ecc9b
+        with:
+          keyword: "Copilot"
+          # optional defaults to false
+          require-all: "false"
+
+      - name: Run commit message check for Claude
+        uses: BetaTH13/check-commit@c3547d8f1720b91d41b4d45600cd9298061ecc9b
+        with:
+          keyword: "Claude"
+          # optional defaults to false
+          require-all: "false"
+
+      - name: Run commit message check for ChatGPT
+        uses: BetaTH13/check-commit@c3547d8f1720b91d41b4d45600cd9298061ecc9b
+        with:
+          keyword: "ChatGPT"
+          # optional defaults to false
+          require-all: "false"
