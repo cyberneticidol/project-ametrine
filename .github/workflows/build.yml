@@ -564,7 +564,7 @@ jobs:
       - name: Push to GHCR
         id: push
         if: github.event_name != 'pull_request'
-        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4.0.0
+        uses: step-security/retry@2543d3cae7c0ee0eefb602a5c6ed439f80b60180 # v4.0.0
         env:
           ALIAS_TAGS: ${{ steps.generate-tags.outputs.alias_tags }}
           OUTPUT_IMAGE: ${{ steps.base.outputs.output_image }}
@@ -605,7 +605,7 @@ jobs:
 
       - name: Install Cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        uses: step-security/cosign-installer@7d5ca7d0ecba292387fa6f81cde2c05e53a2a6d7 # v4.1.2
         with:
           cosign-release: "v3.1.3"
 
