@@ -1,4 +1,5 @@
 name: check commit messages for AI
+# I supppose you could call it a NOT gate? If it passes, then it fails, if it fails, then passes? -M
 
 on:
   pull_request:
