@@ -678,7 +678,7 @@ jobs:
     name: Build Game Mode Announcements
     runs-on: ubuntu-24.04
     needs: [generate_release]
-    if: github.repository == 'ublue-os/bazzite' && github.event_name != 'pull_request'
+    if: github.repository == 'cyberneticidol/project-ametrine' && github.event_name != 'pull_request'
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
@@ -700,7 +700,7 @@ jobs:
         continue-on-error: true
         with:
           token: ${{ secrets.PAT }}
-          repository: ublue-os/bazzite-gamemode-news
+          repository: cyberneticidol/project-ametrine-gamemode-news
           event-type: build-announcements
           client-payload: '{"branch": "${{ steps.get-target.outputs.target }}"}'
 
