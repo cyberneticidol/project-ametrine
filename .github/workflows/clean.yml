@@ -25,7 +25,7 @@ jobs:
         uses: step-security/ghcr-cleanup-action@0d2f9c9d0a80b38158c52e709ef7617b48cc65cc
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          packages: bazzite, bazzite-gnome, bazzite-deck, bazzite-deck-gnome, bazzite-deck-nvidia, bazzite-deck-nvidia-gnome, bazzite-nvidia, bazzite-gnome-nvidia, bazzite-nvidia-open, bazzite-gnome-nvidia-open
+          packages: project-ametrine, project-ametrine-gnome, project-ametrine-deck, project-ametrine-deck-gnome, project-ametrine-deck-nvidia, project-ametrine-deck-nvidia-gnome, project-ametrine-nvidia, project-ametrine-gnome-nvidia, project-ametrine-nvidia-open, project-ametrine-gnome-nvidia-open
           older-than: 90 days
           delete-orphaned-images: true
           keep-n-tagged: 7

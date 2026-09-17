@@ -11,16 +11,16 @@ from collections import defaultdict
 REGISTRY = "ghcr.io/cyberneticidol/"
 
 IMAGES = [
-    "bazzite",
-    "bazzite-gnome",
-    "bazzite-deck",
-    "bazzite-deck-gnome",
-    "bazzite-deck-nvidia",
-    "bazzite-deck-nvidia-gnome",
-    "bazzite-nvidia",
-    "bazzite-gnome-nvidia",
-    "bazzite-nvidia-open",
-    "bazzite-gnome-nvidia-open",
+    "project-ametrine",
+    "project-ametrine-gnome",
+    "project-ametrine-deck",
+    "project-ametrine-deck-gnome",
+    "project-ametrine-deck-nvidia",
+    "project-ametrine-deck-nvidia-gnome",
+    "project-ametrine-nvidia",
+    "project-ametrine-gnome-nvidia",
+    "project-ametrine-nvidia-open",
+    "project-ametrine-gnome-nvidia-open",
 ]
 
 RETRIES = 3
@@ -50,7 +50,7 @@ OTHER_NAMES = {
 COMMITS_FORMAT = (
     "### Commits\n| Hash | Subject | Author |\n| --- | --- | --- |{commits}\n\n"
 )
-COMMIT_FORMAT = "\n| **[{short}](https://github.com/ublue-os/bazzite/commit/{hash})** | {subject} | {author} |"
+COMMIT_FORMAT = "\n| **[{short}](https://github.com/cyberneticidol/project-ametrine/commit/{hash})** | {subject} | {author} |"
 
 CHANGELOG_TITLE = "{tag}: {pretty}"
 CHANGELOG_FORMAT = """\

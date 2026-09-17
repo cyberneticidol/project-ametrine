@@ -95,14 +95,14 @@
             "id": "outputChoice",
             "type": "pickString",
             "description": "Choose which container to build",
-            "default": "bazzite",
+            "default": "project-ametrine",
             "options": [
-                "bazzite",
-                "bazzite-deck",
-                "bazzite-nvidia",
-                "bazzite gnome",
-                "bazzite-deck gnome",
-                "bazzite-nvidia gnome"
+                "project-ametrine",
+                "project-ametrine-deck",
+                "project-ametrine-nvidia",
+                "project-ametrine gnome",
+                "project-ametrine-deck gnome",
+                "project-ametrine-nvidia gnome"
             ]
         }
     ]

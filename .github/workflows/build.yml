@@ -116,16 +116,16 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - bazzite
-          - bazzite-gnome
-          - bazzite-deck
-          - bazzite-deck-gnome
-          - bazzite-deck-nvidia
-          - bazzite-deck-nvidia-gnome
-          - bazzite-nvidia
-          - bazzite-gnome-nvidia
-          - bazzite-nvidia-open
-          - bazzite-gnome-nvidia-open
+          - project-ametrine
+          - project-ametrine-gnome
+          - project-ametrine-deck
+          - project-ametrine-deck-gnome
+          - project-ametrine-deck-nvidia
+          - project-ametrine-deck-nvidia-gnome
+          - project-ametrine-nvidia
+          - project-ametrine-gnome-nvidia
+          - project-ametrine-nvidia-open
+          - project-ametrine-gnome-nvidia-open
           
         include:
           - fedora_version: 44
@@ -133,10 +133,10 @@ jobs:
             kernel_version: 7.2.4-ogc3.1.fc44
             base_image_flavor: main
             arch: x86_64
-          - image: bazzite-nvidia
+          - image: project-ametrine-nvidia
             kernel_flavor: ogc-lts
             kernel_version: 6.18.49-ogc1.1.fc44
-          - image: bazzite-gnome-nvidia
+          - image: project-ametrine-gnome-nvidia
             kernel_flavor: ogc-lts
             kernel_version: 6.18.49-ogc1.1.fc44
 
@@ -181,20 +181,20 @@ jobs:
           # Define Container Target
           #
           if [[ "$IMAGE" == *"deck"* && "$IMAGE" == *"nvidia"* ]]; then
-            echo "container_target=bazzite-nvidia" >> "$GITHUB_OUTPUT"
-            echo "nvidia_base=bazzite-deck" >> "$GITHUB_OUTPUT"
+            echo "container_target=project-ametrine-nvidia" >> "$GITHUB_OUTPUT"
+            echo "nvidia_base=project-ametrine-deck" >> "$GITHUB_OUTPUT"
             echo "install_nvidia=true" >> "$GITHUB_OUTPUT"
           elif [[ "$IMAGE" == *"nvidia"* ]]; then
-            echo "container_target=bazzite-nvidia" >> "$GITHUB_OUTPUT"
-            echo "nvidia_base=bazzite" >> "$GITHUB_OUTPUT"
+            echo "container_target=project-ametrine-nvidia" >> "$GITHUB_OUTPUT"
+            echo "nvidia_base=project-ametrine" >> "$GITHUB_OUTPUT"
             echo "install_nvidia=true" >> "$GITHUB_OUTPUT"
           elif [[ "$IMAGE" == *"deck"* ]]; then
-            echo "container_target=bazzite-deck" >> "$GITHUB_OUTPUT"
-            echo "nvidia_base=bazzite-deck" >> "$GITHUB_OUTPUT" # NOOP
+            echo "container_target=project-ametrine-deck" >> "$GITHUB_OUTPUT"
+            echo "nvidia_base=project-ametrine-deck" >> "$GITHUB_OUTPUT" # NOOP
             echo "install_nvidia=false" >> "$GITHUB_OUTPUT"
           else
-            echo "container_target=bazzite" >> "$GITHUB_OUTPUT"
-            echo "nvidia_base=bazzite" >> "$GITHUB_OUTPUT" # NOOP
+            echo "container_target=project-ametrine" >> "$GITHUB_OUTPUT"
+            echo "nvidia_base=project-ametrine" >> "$GITHUB_OUTPUT" # NOOP
             echo "install_nvidia=false" >> "$GITHUB_OUTPUT"
           fi
           # Nvidia flavor
@@ -335,7 +335,7 @@ jobs:
 
           # Rootless buildah caches to /var/tmp/buildah-cache-$UID rather than
           # -0, so the old rootful caches are dead weight. Bump to invalidate.
-          CACHE_NAME="bazzite-${FEDORA_VERSION}-rootless"
+          CACHE_NAME="project-ametrine-${FEDORA_VERSION}-rootless"
 
           ALLOW_CACHE_WRITE="false"
 
@@ -393,12 +393,12 @@ jobs:
           IMAGE_LABELS: |
             io.artifacthub.package.logo-url=https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/logo.png
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/bazzite/refs/heads/main/README.md
-            org.opencontainers.image.description=Bazzite is a custom image that brings the best of Linux gaming to all of your devices - including your favorite handheld.
+            org.opencontainers.image.description=Project Ametrine is intended to be a Generative AI-free fork of Bazzite. All the Bazzite power, with no AI sludge in it!
             org.opencontainers.image.licenses=Apache-2.0
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.source=https://bazzite.gg
-            org.opencontainers.image.title=Bazzite
-            org.opencontainers.image.vendor=Universal Blue
+            org.opencontainers.image.title=Project Ametrine
+            org.opencontainers.image.vendor=CyberneticIdol
             org.opencontainers.image.url=https://bazzite.gg
         run: |
           version="${{ needs.version.outputs.version }}"

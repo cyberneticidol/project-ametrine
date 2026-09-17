@@ -31,16 +31,16 @@ jobs:
       fail-fast: false
       matrix:
         image_name:
-          - bazzite
-          - bazzite-nvidia
-          - bazzite-nvidia-open
-          - bazzite-gnome
-          - bazzite-gnome-nvidia
-          - bazzite-gnome-nvidia-open
-          - bazzite-deck
-          - bazzite-deck-gnome
-          - bazzite-deck-nvidia
-          - bazzite-deck-nvidia-gnome
+          - project-ametrine
+          - project-ametrine-nvidia
+          - project-ametrine-nvidia-open
+          - project-ametrine-gnome
+          - project-ametrine-gnome-nvidia
+          - project-ametrine-gnome-nvidia-open
+          - project-ametrine-deck
+          - project-ametrine-deck-gnome
+          - project-ametrine-deck-nvidia
+          - project-ametrine-deck-nvidia-gnome
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
@@ -117,8 +117,8 @@ jobs:
           ref="${ref/-nvidia-open/}"
           ref="${ref/-nvidia/}"
           # Handle naming mismatch: deck uses nvidia-gnome, non-deck uses gnome-nvidia
-          if [[ "$ref" == "bazzite-nvidia-gnome" ]]; then
-            ref="bazzite-gnome-nvidia"
+          if [[ "$ref" == "project-ametrine-nvidia-gnome" ]]; then
+            ref="project-ametrine-gnome-nvidia"
           fi
           echo "ref=${ref}" >> $GITHUB_OUTPUT
 
