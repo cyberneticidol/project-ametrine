@@ -22,7 +22,7 @@ jobs:
           egress-policy: audit
 
       - name: Delete Images Older Than 90 Days
-        uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1.2.2
+        uses: step-security/ghcr-cleanup-action@0d2f9c9d0a80b38158c52e709ef7617b48cc65cc
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           packages: bazzite,bazzite-deck
