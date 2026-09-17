@@ -485,9 +485,9 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
-    wget https://github.com/cyberneticidol/token2-fido-bridge/releases/download/v1.2.1/token2-fido-bridge-1.2.1-1.fc44.x86_64.rpm && \
+    wget https://github.com/cyberneticidol/token2-fido-bridge/releases/download/v1.2.2/token2-fido-bridge-1.2.2-1.fc44.x86_64.rpm && \
     dnf5 install -y \
-        token2-fido-bridge-1.2.1-1.fc44.x86_64.rpm  && \
+        token2-fido-bridge-1.2.2-1.fc44.x86_64.rpm  && \
     /ctx/cleanup
 
 # Cleanup & Finalize
