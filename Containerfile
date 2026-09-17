@@ -623,10 +623,10 @@ RUN --mount=type=tmpfs,target=/run --network=none bootc container lint
 # DECK BUILDS
 ################
 
-FROM bazzite AS bazzite-deck
+FROM bazzite AS project-ametrine-deck
 
-ARG IMAGE_NAME="${IMAGE_NAME:-bazzite-deck}"
-ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
+ARG IMAGE_NAME="${IMAGE_NAME:-project-ametrine-deck}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-cyberneticidol}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-stable}"
 ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG VERSION_TAG="${VERSION_TAG}"
@@ -839,10 +839,10 @@ RUN --mount=type=tmpfs,target=/run --network=none bootc container lint
 # NVIDIA BUILDS
 ################
 
-FROM ${NVIDIA_BASE} AS bazzite-nvidia
+FROM ${NVIDIA_BASE} AS project-ametrine-nvidia
 
-ARG IMAGE_NAME="${IMAGE_NAME:-bazzite-nvidia}"
-ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
+ARG IMAGE_NAME="${IMAGE_NAME:-project-ametrine-nvidia}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-cyberneticidol}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-stable}"
 ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia-open}"
