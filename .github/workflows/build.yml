@@ -120,12 +120,12 @@ jobs:
           - bazzite-gnome
           - bazzite-deck
           - bazzite-deck-gnome
-          #- bazzite-deck-nvidia
-          #- bazzite-deck-nvidia-gnome
-          #- bazzite-nvidia
-          #- bazzite-gnome-nvidia
-          #- bazzite-nvidia-open
-          #- bazzite-gnome-nvidia-open
+          - bazzite-deck-nvidia
+          - bazzite-deck-nvidia-gnome
+          - bazzite-nvidia
+          - bazzite-gnome-nvidia
+          - bazzite-nvidia-open
+          - bazzite-gnome-nvidia-open
           
         include:
           - fedora_version: 44
@@ -133,12 +133,12 @@ jobs:
             kernel_version: 7.2.4-ogc3.1.fc44
             base_image_flavor: main
             arch: x86_64
-          #- image: bazzite-nvidia
-          #  kernel_flavor: ogc-lts
-          #  kernel_version: 6.18.49-ogc1.1.fc44
-          #- image: bazzite-gnome-nvidia
-          #  kernel_flavor: ogc-lts
-          #  kernel_version: 6.18.49-ogc1.1.fc44
+          - image: bazzite-nvidia
+            kernel_flavor: ogc-lts
+            kernel_version: 6.18.49-ogc1.1.fc44
+          - image: bazzite-gnome-nvidia
+            kernel_flavor: ogc-lts
+            kernel_version: 6.18.49-ogc1.1.fc44
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
