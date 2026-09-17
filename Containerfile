@@ -908,8 +908,7 @@ RUN --mount=type=cache,dst=/var/cache \
         rm "/usr/share/ublue-os/dconfs/nvidia-silverblue/zz0-"*"-bazzite-nvidia-silverblue-"*".gschema.override" \
     ; fi && \
     sed -i 's/ nvidia_peermem\b//' /usr/lib/dracut/dracut.conf.d/99-nvidia.conf && \
-    systemctl enable nvidia-powerd.serv7b043b92299f94e8d225f480c1aeb39155f46310d527819f42
-Copying blob sha256:8d2ad34dd679e2ice && \
+    systemctl enable nvidia-powerd.service && \
     systemctl disable nvidia-persistenced.service && \
     systemctl enable ublue-nvidia-flatpak-runtime-sync && \
     systemctl enable ublue-nvidia-flatpak-runtime-verify && \
