@@ -2,12 +2,12 @@
 
 set -eoux pipefail
 
-IMAGE_PRETTY_NAME="Bazzite"
+IMAGE_PRETTY_NAME="Project Ametrine"
 IMAGE_LIKE="fedora"
 HOME_URL="https://bazzite.gg"
 DOCUMENTATION_URL="https://docs.bazzite.gg"
 SUPPORT_URL="https://discord.bazzite.gg"
-BUG_SUPPORT_URL="https://github.com/ublue-os/bazzite/issues/"
+BUG_SUPPORT_URL="https://github.com/cyberneticidol/project-ametrine/issues/"
 LOGO_ICON="bazzite-logo"
 LOGO_COLOR="0;38;2;138;43;226"
 
@@ -38,7 +38,7 @@ EOF
 
 # OS Release File
 sed -i "s/^VARIANT_ID=.*/VARIANT_ID=$IMAGE_NAME/" /usr/lib/os-release
-sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Bazzite\"/" /usr/lib/os-release
+sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Project Ametrine\"/" /usr/lib/os-release
 sed -i "s/^NAME=.*/NAME=\"$IMAGE_PRETTY_NAME\"/" /usr/lib/os-release
 sed -i "s|^HOME_URL=.*|HOME_URL=\"$HOME_URL\"|" /usr/lib/os-release
 sed -i "s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"$DOCUMENTATION_URL\"|" /usr/lib/os-release
