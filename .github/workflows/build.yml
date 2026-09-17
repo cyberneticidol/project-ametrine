@@ -159,7 +159,7 @@ jobs:
           fi
 
       - name: Free Disk Space (Ubuntu)
-        uses: cyberneticidol/free-disk-space-ng@7ef3ab3fe80bdd526bc520cc0dcbb3f59c109fe5
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6
 
       # The image registry name must be lower-case, but GitHub usernames can be capitalized.
       - name: Get lower-case equivalent of the repository owner's username
