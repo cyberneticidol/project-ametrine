@@ -21,3 +21,7 @@ Same command! Well.. almost. It's `project-ametrine-deck`. All images are listed
 ## I have a comment/I think something's missing...
 
 Then you're welcome to open an Issue! If you have a fix for something, feel free to open a PR and I'll take a look!
+
+## What should I expect?
+
+Well, it's intended to avoid all forms of Generative AI. However, a lot of the packages come upstream from Fedora, which is contaminated with Generative AI. While some apps are replaced with AI-free ones, it might not be possible, so the aim is harm reduction. I didn't delete the commits containing Generative AI because that would be destroying history, and I don't do that.
