@@ -1,4 +1,4 @@
-name: Build Bazzite
+name: Build Project Ametrine Images
 on:
   schedule:
     - cron: "25 9 * * 6" # Running at 9:25 UTC every Saturday morning! Magnifico!

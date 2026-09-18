@@ -1,10 +1,12 @@
 <!---               
-Thank you for contributing to the Universal Blue project!
+Thank you for contributing to Project Ametrine!
 Here are some tips for you:
 
-## Thank you for contributing to the Universal Blue project!
+## Thank you for contributing to Project Ametrine!
 
 Please [read the Contributor's Guide](https://universal-blue.org/contributing.html) before submitting a pull request.
+
+Generative AI is not allowed here. It's expected that you're honest in disclosing it. If not, and there is any suspicion of using it, your PR will be rejected.
 
 In this project we follow [Semantic PRs][1] and [Conventional Commits][2] to describe features and fixes we made. It would be nice if you did too as we use this to generate changelogs with the right sections: 
 
