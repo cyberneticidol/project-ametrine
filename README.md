@@ -25,3 +25,13 @@ Then you're welcome to open an Issue! If you have a fix for something, feel free
 ## What should I expect?
 
 Well, it's intended to avoid all forms of Generative AI. However, a lot of the packages come upstream from Fedora, which is contaminated with Generative AI. While some apps are replaced with AI-free ones, it might not be possible, so the aim is harm reduction. I didn't delete the commits containing Generative AI because that would be destroying history, and I don't do that.
+
+## Then why are you pulling commits from upstream?
+
+Because it's easier, and it allows me to check if any Generative AI is used.
+
+## What are the branch names?
+
+"Main" is the stable branch. It's locked to prevent unstable changes.
+"Testing" is when unstable changes pass smoke testing. Kind of like RC builds.
+"Unstable" is the core development branch. Things can break without warning!
