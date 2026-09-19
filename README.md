@@ -32,6 +32,6 @@ Because it's easier, and it allows me to check if any Generative AI is used.
 
 ## What are the branch names?
 
-"Main" is the stable branch. It's locked to prevent unstable changes.
-"Testing" is when unstable changes pass smoke testing. Kind of like RC builds.
-"Unstable" is the core development branch. Things can break without warning!
+- "Main" is the stable branch. It's locked to prevent unstable changes.
+- "Testing" is when unstable changes pass smoke testing. Kind of like RC builds.
+- "Unstable" is the core development branch. Things can break without warning!
