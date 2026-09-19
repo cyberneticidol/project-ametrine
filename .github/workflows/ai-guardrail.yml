@@ -23,6 +23,7 @@ jobs:
 
       - name: Run commit message check for CoPilot
         uses: BetaTH13/check-commit@c3547d8f1720b91d41b4d45600cd9298061ecc9b
+        if: always()
         with:
           keyword: "Copilot"
           # optional defaults to false
@@ -30,6 +31,7 @@ jobs:
 
       - name: Run commit message check for Claude
         uses: BetaTH13/check-commit@c3547d8f1720b91d41b4d45600cd9298061ecc9b
+        if: always()
         with:
           keyword: "Claude"
           # optional defaults to false
@@ -37,6 +39,7 @@ jobs:
 
       - name: Run commit message check for ChatGPT
         uses: BetaTH13/check-commit@c3547d8f1720b91d41b4d45600cd9298061ecc9b
+        if: always()
         with:
           keyword: "ChatGPT"
           # optional defaults to false
