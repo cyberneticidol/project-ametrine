@@ -40,7 +40,7 @@ ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia-open}"
 FROM ghcr.io/ublue-os/akmods:${KERNEL_FLAVOR}-${FEDORA_VERSION}-${KERNEL_VERSION} AS akmods
 FROM ghcr.io/ublue-os/akmods-extra:${KERNEL_FLAVOR}-${FEDORA_VERSION}-${KERNEL_VERSION} AS akmods-extra
 FROM ghcr.io/ublue-os/akmods-${NVIDIA_FLAVOR}:${KERNEL_FLAVOR}-${FEDORA_VERSION}-${KERNEL_VERSION} AS akmods-nvidia
-FROM ghcr.io/ublue-os/brew:latest@sha256:60ada2d65891d8797beef49d8b43f2108519cbbaf04c9c7363e1a008677fcd35 AS brew
+FROM ghcr.io/ublue-os/brew:latest@sha256:e9a72571b7644b6277f0638b6a3c5e497e265e1098ab91224567acbdeb8b74ea AS brew
 
 FROM scratch AS ctx
 COPY build_files /
@@ -727,17 +727,10 @@ RUN --mount=type=cache,dst=/var/cache \
     ; fi && \
     chmod +x /usr/share/gamescope-session-plus/gamescope-session-plus && \
     sed -i 's/- xbox-elite/- deck/g' /usr/share/inputplumber/devices/50-steam_deck.yaml && \
-    sed -i 's/LOG_LEVEL=info/LOG_LEVEL=debug/g' /usr/lib/systemd/system/inputplumber.service && \
     sed -i \
         -e 's|^export GAMESCOPE_SESSION_STEAM_BOOTSTRAP_ARCHIVE=.*$|export GAMESCOPE_SESSION_STEAM_BOOTSTRAP_ARCHIVE="/usr/share/gamescope-session-plus/bootstrap_steam.tar.gz"|' \
         -e 's|^export GAMESCOPE_SESSION_STEAM_BOOTSTRAP_DIR=.*$|export GAMESCOPE_SESSION_STEAM_BOOTSTRAP_DIR="${HOME}/.local/share"|' \
-        -e '/# Run steam-tweaks if exists/,+3c\    if command -v /usr/bin/bazzite-steam-brand > /dev/null; then\
-            /usr/bin/bazzite-steam-brand\
-        fi' \
         -e 's|export CLIENTCMD="steam -gamepadui -steamos3 -steampal -steamdeck"|export CLIENTCMD="steam -gamepadui -steamos3 -steampal -steamdeck -testoobeupdater"|' \
-        -e '/^    echo "set_bootstrap=1" >> "$STEAM_BOOTSTRAP_CONFIG"$/a\    if command -v /usr/bin/bazzite-steam-brand > /dev/null; then\
-            /usr/bin/bazzite-steam-brand\
-        fi' \
         /usr/share/gamescope-session-plus/sessions.d/steam && \
     sed -i 's|^CLIENTCMD="opengamepadui --overlay-mode|/usr/libexec/hwsupport/non-valve-handheld-hardware \&\& CLIENTCMD="opengamepadui --accessibility disabled --overlay-mode --steam-input --steamos-manager --skip-update-pack|' /usr/share/gamescope-session-plus/sessions.d/ogui-steam && \
     git clone https://gitlab.com/evlaV/jupiter-dock-updater-bin.git \
