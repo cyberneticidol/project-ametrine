@@ -892,9 +892,8 @@ manage-pcie-power ACTION="":
         get_status_token
         exit 0
     fi
-    echo -e "This script manages PCIe Port Power Management for maximum hardware stability."
-    echo -e "Disabling PCIe Port Power Management prevents the PCIe bus from entering low-power states that can cause micro-stuttering in games, latency spikes for NVMe drives, or wake-from-sleep issues on modern AMD Ryzen systems."
-    echo -e "Recommended for users seeking the lowest possible system latency."
+    echo -e "This script manages PCIe Port Power Management."
+    echo -e "Disabling it can resolve some performance issues on AMD Ryzen systems."
     echo -e "\nCurrent setting: $(get_current_status)\n"
     if [ -z "$OPTION" ]; then
         OPTION=$(gum choose "Disable PCIe Port PM" "Restore Defaults" "Exit without changes")
