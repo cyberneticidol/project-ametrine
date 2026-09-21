@@ -833,13 +833,13 @@ manage-intel-ethernet ACTION="":
     case "$OPTION" in
       "Disable ASPM & Performance Policy"|enable)
         if ! lspci | grep -Ei "I225|I226|I221|I222" > /dev/null; then
-             gum style --foreground 196 "Error: No compatible Intel NIC detected."
+             gum style --foreground 196 "There's no Intel ethernet card that will work with this. Bit pointless, really."
              exit 0
         fi
 
         # 2. Only run rpm-ostree if the fix is actually missing
         if echo "$CURRENT_KARGS" | grep -q "pcie_aspm.policy=performance" && echo "$CURRENT_KARGS" | grep -q "pcie_aspm=off"; then
-            gum style --foreground 212 "Notice: Fixes are already applied in kargs."
+            gum style --foreground 212 "Er.. your KArgs already have the fix in it."
         else
             echo "Applying Intel Ethernet stability fixes..."
             # Added deletion of the old ignored EEE arg and appended the new policy
@@ -853,7 +853,7 @@ manage-intel-ethernet ACTION="":
         else
             echo "Restoring Intel Ethernet defaults..."
             rpm-ostree kargs --delete='igc.EEE=0' --delete='pcie_aspm=off' --delete='pcie_aspm.policy=performance' 2>/dev/null || true
-            echo "Defaults restored. Please reboot."
+            echo "Okay, disabled. Please make sure you reboot!"
         fi
         ;;
       "Exit without changes"|*)
