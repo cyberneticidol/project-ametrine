@@ -824,7 +824,7 @@ manage-intel-ethernet ACTION="":
         exit 0
     fi
     echo -e "This script manages a stability fix for Intel I225-V and I226-V Ethernet controllers."
-    echo -e "It disables PCIe Active State Power Management (ASPM) and sets the PCIe policy to performance to prevent hardware hangs, failed register reads, and total connection drops."
+    echo -e "It disables PCIe ASPM to increase connection reliability and prevent dropped connections."
     echo -e "\nCurrent setting: $(get_current_status)\n"
     if [ -z "$OPTION" ]; then
         OPTION=$(gum choose "Disable ASPM & Performance Policy" "Restore Defaults" "Exit without changes")
